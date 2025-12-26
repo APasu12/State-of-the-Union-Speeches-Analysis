@@ -5,7 +5,7 @@ Source: https://www.gutenberg.org/cache/epub/5050/pg5050-images.html
 Each Speech begins with the words "State of the Union Address" followed by the President's name and the date. This text is ignored in the analysis to ensure that the results are not skewed. Numbers, bolded text, hyperlinks, audience reactions, and information about Project Gutenberg are ignored in the analysis.
 
 # Project Overview
-The analysis follows a multi-step pipeline to transform raw text from Project Gutenberg into a structured semantic model:
+Transforming raw text from Project Gutenberg into a structured semantic model:
 * **Data Extraction**: Scrapes the full text and uses custom regex patterns to isolate individual speeches based on presidential names (from Harry S. Truman to George W. Bush).
 * **Text Cleaning**: Removes HTML tags, numbers, audience reactions (such as "(Applause)"), and Project Gutenberg metadata to ensure a clean word frequency matrix.
 * **Mathematical Modeling**: 
