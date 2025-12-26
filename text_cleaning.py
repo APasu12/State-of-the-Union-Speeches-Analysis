@@ -6,22 +6,29 @@ def get_cleaned_corpus(url):
     # Step 1: Load and Clean the Corpus
     response = requests.get(url)
     html = response.text
+
+    # Parse HTML using BeautifulSoup
     soup = BeautifulSoup(html, "html.parser")
 
     # Remove bold (<b>) and hyperlink (<a>) tags
     for tag in soup.find_all(['b', 'a']):
         tag.decompose()
 
+    # Extract all text from the page.
     full_text = soup.get_text()
+
+    # Remove all numbers (to eliminate dates and digits).
     text_no_numbers = re.sub(r'\d+', '', full_text)
 
+    # Remove any lines referencing "Project Gutenberg".
     lines = text_no_numbers.splitlines()
     filtered_lines = [line for line in lines if "Project Gutenberg" not in line]
 
+    # We join the lines with a space (instead of "\n") and normalize whitespace.
     filtered_text = " ".join(filtered_lines)
     filtered_text = re.sub(r'\s+', ' ', filtered_text).strip()
 
-    # Remove audience reactions
+    # Remove audience reactions such as (Applause), (Laughter), (Cheer), (Reaction).
     filtered_text = re.sub(
         r'\([^)]*\b(applause|laughter|cheer|reaction)\b[^)]*\)',
         '', filtered_text, flags=re.IGNORECASE
